@@ -28,7 +28,12 @@ def is_word_guessed(secret_word, letters_guessed):
         bool: True only if all the letters of secret_word are in letters_guessed, False otherwise
     '''
     # TODO: Loop through the letters in the secret_word and check if a letter is not in lettersGuessed
-    pass
+    for letter in secret_word:
+        if letter not in lettersGuessed:
+            return False
+        else:
+            return True
+
 
 def get_guessed_word(secret_word, letters_guessed):
     '''
@@ -43,8 +48,13 @@ def get_guessed_word(secret_word, letters_guessed):
     '''
 
     #TODO: Loop through the letters in secret word and build a string that shows the letters that have been guessed correctly so far that are saved in letters_guessed and underscores for the letters that have not been guessed yet
-
-    pass
+    guessed_letters = ''
+    for letter in secret_word:
+        if letter in letters_guessed:
+            guessed_letters += letter
+        else: 
+            guessed_letters += '_'
+    return guessed_letters
 
 
 def is_guess_in_word(guess, secret_word):
@@ -60,10 +70,10 @@ def is_guess_in_word(guess, secret_word):
 
     '''
     #TODO: check if the letter guess is in the secret word
-
-    pass
-
-
+    if guess in secret_word:
+        return True
+    else:
+        return False
 
 
 def spaceman(secret_word):
@@ -77,12 +87,21 @@ def spaceman(secret_word):
 
 
     #TODO: show the player information about the game according to the project spec
+    print('info about the game')
 
     #TODO: Ask the player to guess one letter per round and check that it is only one letter
+    guess = input('Guess a letter: ')
+    if len(guess) > 1:
+        guess = input('Please guess again, only one letter is allowed: ')
 
     #TODO: Check if the guessed letter is in the secret or not and give the player feedback
+    if is_guess_in_word(guess, secret_word) == True:
+        print(f'Correct, {guess} is in the secret word')
+    else: 
+        print(f'Incorrect, {guess} is not in the secret word')
 
     #TODO: show the guessed word so far
+    print(get_guessed_word(secret_word, guess))
 
     #TODO: check if the game has been won or lost
 
