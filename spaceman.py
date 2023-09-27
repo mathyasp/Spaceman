@@ -1,3 +1,4 @@
+'''Spaceman Assignment for ACS-1100'''
 import random
 
 def load_word():
@@ -6,15 +7,15 @@ def load_word():
         from the list.
 
     Returns: 
-           string: The secret word to be used in the spaceman guessing game
+        string: The secret word to be used in the spaceman guessing game
     '''
-    f = open('words.txt', 'r')
-    words_list = f.readlines()
-    f.close()
-    
-    words_list = words_list[0].split(' ') #comment this line out if you use a words.txt file with each word on a new line
-    secret_word = random.choice(words_list)
-    return secret_word
+    open_file = open('words.txt', 'r')
+    words_list = open_file.readlines()
+    open_file.close()
+
+    words_list = words_list[0].split(' ')
+    secret = random.choice(words_list)
+    return secret
 
 def is_word_guessed(secret_word, letters_guessed):
     '''
@@ -85,26 +86,40 @@ def spaceman(secret_word):
 
     '''
 
+    print('info about the game')
+    letters_guessed = ''
+
+    guess_count = 0
+    current_guess = ''
+    while(not current_guess == secret_word):
+        guess = input('Guess a letter: ')
+        if len(guess) > 1:
+            guess = input('Please guess again, only one letter is allowed: ')
+        if is_guess_in_word(guess, secret_word) is True:
+            print(f'Correct, {guess} is in the secret word')
+            letters_guessed += guess
+        else: 
+            print(f'Incorrect, {guess} is not in the secret word\nYou have {6 - guess_count} guesses remaining.')
+            guess_count += 1
+        if guess_count == 7:
+            print("That's 7 guesses! Sorry, you lose")
+            return
+    
+        current_guess = get_guessed_word(secret_word, letters_guessed)
+        print(current_guess)
+    print("Congrats, you win! You guessed the word correctly.")
+
 
     #TODO: show the player information about the game according to the project spec
-    print('info about the game')
-
+    
     #TODO: Ask the player to guess one letter per round and check that it is only one letter
-    guess = input('Guess a letter: ')
-    if len(guess) > 1:
-        guess = input('Please guess again, only one letter is allowed: ')
-
+    
     #TODO: Check if the guessed letter is in the secret or not and give the player feedback
-    if is_guess_in_word(guess, secret_word) == True:
-        print(f'Correct, {guess} is in the secret word')
-    else: 
-        print(f'Incorrect, {guess} is not in the secret word')
 
     #TODO: show the guessed word so far
-    print(get_guessed_word(secret_word, guess))
 
     #TODO: check if the game has been won or lost
-
+        
 
 
 
