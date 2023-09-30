@@ -86,15 +86,15 @@ def spaceman(secret_word):
 
     '''
 
-    print('info about the game')
+    print('This is a game of Spaceman. See if you can guess the word.\nGuess a letter correctly, and you move on to the next round.\nIf you guess an incorrect letter 7 times, you lose!\nIf you guess all the letters you win!\n')
     letters_guessed = ''
 
     guess_count = 0
     current_guess = ''
     while(not current_guess == secret_word):
-        guess = input('Guess a letter: ')
+        guess = input('Guess a letter:\n')
         if len(guess) > 1:
-            guess = input('Please guess again, only one letter is allowed: ')
+            guess = input('Please guess again, only one letter is allowed:\n')
         if is_guess_in_word(guess, secret_word) is True:
             print(f'Correct, {guess} is in the secret word')
             letters_guessed += guess
